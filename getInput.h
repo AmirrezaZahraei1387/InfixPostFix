@@ -29,7 +29,7 @@ void resolveNumber(InputOrdFlow<NUMBER_t>& inputOrdFlow , std::string& strSeq){
                 .number = static_cast<NUMBER_t>(std::stod(strSeq))});
         strSeq.clear();
     }
-};
+}
 
 template<typename NUMBER_t>
 int getUserInput(InputOrdFlow<NUMBER_t>& inputOrdFlow, std::istream& inputStream){
@@ -88,6 +88,7 @@ int getUserInput(InputOrdFlow<NUMBER_t>& inputOrdFlow, std::istream& inputStream
             default:
                 if(std::find(NUMBERS.begin(), NUMBERS.end(), x) != NUMBERS.end()){
                     if(with_neg){
+                        with_neg = false;
                         resolve_number.push_back('-');
                         inputOrdFlow.pop_back();
                     }
