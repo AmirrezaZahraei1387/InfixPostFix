@@ -14,7 +14,9 @@ public:
     void printPreFix(std::ostream& outStream);
     void printPostFix(std::ostream& outStream);
 
+    void loadFromPreFix(InputOrdFlow<NUMBER_t>& flow);
     void loadFromPostFix(InputOrdFlow<NUMBER_t>& flow);
+    void makeEmpty();
 
 private:
     struct Node{
@@ -29,6 +31,8 @@ private:
     void printInfix(Node*& node,  std::ostream& outStream);
     void printPreFix(Node*& node,  std::ostream& outStream);
     void printPostFix(Node*& node,  std::ostream& outStream);
+
+    void makeEmpty(Node*& node);
 };
 
 
