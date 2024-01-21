@@ -32,11 +32,16 @@ void ExpTree<NUMBER_t>::printInFix(ExpTree::Node *&node, std::ostream &outStream
     if(node  == nullptr)
         return;
     else{
-        outStream<<'(';
+        if(node->left != nullptr && node->right != nullptr) {
+            outStream << '(';
+        }
         printInFix(node->left, outStream);
         printW(node->value, outStream);
         printInFix(node->right, outStream);
-        outStream<<')';
+
+        if(node->left != nullptr && node->right != nullptr){
+            outStream<<')';
+        }
     }
 }
 
