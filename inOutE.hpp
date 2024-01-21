@@ -1,9 +1,10 @@
 //
 // Created by KAVOSH on 1/20/2024.
 //
-#ifndef INFIXPOSTFIX_GETINPUT_H
-#define INFIXPOSTFIX_GETINPUT_H
+#ifndef INFIXPOSTFIX_INOUTE_HPP
+#define INFIXPOSTFIX_INOUTE_HPP
 #include <istream>
+#include <ostream>
 #include <vector>
 #include <array>
 #include <algorithm>
@@ -101,4 +102,26 @@ int getUserInput(InputOrdFlow<NUMBER_t>& inputOrdFlow, std::istream& inputStream
     resolveNumber(inputOrdFlow, resolve_number);
     return 0;
 }
-#endif //INFIXPOSTFIX_GETINPUT_H
+
+template<typename NUMBER_t>
+void printW(InputOrd<NUMBER_t>& p, std::ostream& outStream){
+    switch (p.tag) {
+        case ADD:
+            outStream<<'+';
+            break;
+        case SUB:
+            outStream<<'-';
+            break;
+        case MUL:
+            outStream<<'*';
+            break;
+        case DEV:
+            outStream<<'/';
+            break;
+        case  NUMBER:
+            outStream<<p.number<<' ';
+            break;
+    }
+}
+
+#endif //INFIXPOSTFIX_INOUTE_HPP
