@@ -124,4 +124,20 @@ void printW(InputOrd<NUMBER_t>& p, std::ostream& outStream){
     }
 }
 
+template<typename NUMBER_t>
+NUMBER_t calculateValueW(TAG tag, NUMBER_t left, NUMBER_t right){
+    switch (tag) {
+        case ADD:
+            return left + right;
+
+        case SUB:
+            return left - right;
+
+        case MUL:
+            return left * right;
+
+        case DEV:
+            return left / right;
+    }
+}
 #endif //INFIXPOSTFIX_INOUTE_HPP

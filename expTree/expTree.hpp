@@ -10,13 +10,18 @@
 template<typename NUMBER_t>
 class ExpTree{
 public:
-    void printInfix(std::ostream& outStream);
+    explicit ExpTree() = default;
+
+    void printInFix(std::ostream& outStream);
     void printPreFix(std::ostream& outStream);
     void printPostFix(std::ostream& outStream);
 
     void loadFromPreFix(InputOrdFlow<NUMBER_t>& flow);
     void loadFromPostFix(InputOrdFlow<NUMBER_t>& flow);
+    //void loadFromInfix(InputOrdFlow<NUMBER_t>& flow);
+
     void makeEmpty();
+    NUMBER_t calculate();
 
 private:
     struct Node{
@@ -28,10 +33,11 @@ private:
 
     Node* root_p;
 
-    void printInfix(Node*& node,  std::ostream& outStream);
+    void printInFix(Node*& node,  std::ostream& outStream);
     void printPreFix(Node*& node,  std::ostream& outStream);
     void printPostFix(Node*& node,  std::ostream& outStream);
 
+    NUMBER_t calculate(Node*& node);
     void makeEmpty(Node*& node);
 };
 
