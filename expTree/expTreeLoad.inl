@@ -173,3 +173,9 @@ template<typename NUMBER_t>
 NUMBER_t ExpTree<NUMBER_t>::calculate() {
     return calculate(root_p);
 }
+
+template<typename NUMBER_t>
+ExpTree<NUMBER_t>::~ExpTree() noexcept {
+    makeEmpty();
+    root_p = nullptr;
+}

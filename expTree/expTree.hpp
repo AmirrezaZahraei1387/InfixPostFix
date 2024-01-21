@@ -11,6 +11,7 @@ template<typename NUMBER_t>
 class ExpTree{
 public:
     explicit ExpTree() = default;
+    ~ExpTree() noexcept;
 
     void printInFix(std::ostream& outStream);
     void printPreFix(std::ostream& outStream);

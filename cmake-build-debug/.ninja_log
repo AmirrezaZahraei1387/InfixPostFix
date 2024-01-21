@@ -1,0 +1,18 @@
+# ninja log v5
+4	677	7275154643389824	CMakeFiles/InfixPostFix.dir/main.cpp.obj	8653d34c3430cc21
+677	796	7275154644454421	InfixPostFix.exe	f3170f173915bffc
+13	668	7275063956988985	CMakeFiles/InfixPostFix.dir/expTree/expTreePrint.cpp.obj	d58016abe22027bd
+3	534	7275066090453575	CMakeFiles/InfixPostFix.dir/expTree/expTreeTypesUsed.cpp.obj	dedc9bc342556686
+4	677	7274954920890973	CMakeFiles/InfixPostFix.dir/expTree/expTree.cpp.obj	f308b34dfe62eac4
+1	188	7275156815955190	build.ninja	9bf6cd176f971843
+17	589	7275063956142186	CMakeFiles/InfixPostFix.dir/expTree/expTreeLoad.cpp.obj	25809460fdbda10c
+4	643	7275157654207906	CMakeFiles/InfixPostFix.dir/main.cpp.obj	8653d34c3430cc21
+643	763	7275157655289695	InfixPostFix.exe	f3170f173915bffc
+3	639	7275160240996362	CMakeFiles/InfixPostFix.dir/main.cpp.obj	8653d34c3430cc21
+639	762	7275160242118973	InfixPostFix.exe	f3170f173915bffc
+4	849	7275184057855860	CMakeFiles/InfixPostFix.dir/main.cpp.obj	8653d34c3430cc21
+849	989	7275184059138356	InfixPostFix.exe	f3170f173915bffc
+4	877	7275184740313457	CMakeFiles/InfixPostFix.dir/main.cpp.obj	8653d34c3430cc21
+877	1002	7275184741386040	InfixPostFix.exe	f3170f173915bffc
+5	681	7275188247511451	CMakeFiles/InfixPostFix.dir/main.cpp.obj	8653d34c3430cc21
+681	810	7275188248673036	InfixPostFix.exe	f3170f173915bffc
