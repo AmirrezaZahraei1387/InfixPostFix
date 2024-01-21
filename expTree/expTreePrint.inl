@@ -29,14 +29,18 @@ void ExpTree<NUMBER_t>::printPreFix(ExpTree::Node *&node, std::ostream &outStrea
 
 template<typename NUMBER_t>
 void ExpTree<NUMBER_t>::printInFix(ExpTree::Node *&node, std::ostream &outStream) {
+
     if(node  == nullptr)
         return;
     else{
-        if(node->left != nullptr && node->right != nullptr) {
+        if((node->left != nullptr && node->right != nullptr)) {
             outStream << '(';
         }
+
         printInFix(node->left, outStream);
-        printW(node->value, outStream);
+        printW(node->value, outStream
+               ,true
+               );
         printInFix(node->right, outStream);
 
         if(node->left != nullptr && node->right != nullptr){

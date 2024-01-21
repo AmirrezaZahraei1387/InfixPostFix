@@ -42,7 +42,7 @@ rule CUSTOM_COMMAND
 # Rule for re-running cmake.
 
 rule RERUN_CMAKE
-  command = "C:\Program Files\JetBrains\CLion 2022.2\bin\cmake\win\bin\cmake.exe" --regenerate-during-build -SE:\Github-Repos\InfixPostFix -BE:\Github-Repos\InfixPostFix\cmake-build-debug
+  command = "C:\Program Files\JetBrains\CLion 2022.2\bin\cmake\win\bin\cmake.exe" --regenerate-during-build -SC:\CXX_PROJECTS\InfixPostFIX -BC:\CXX_PROJECTS\InfixPostFIX\cmake-build-debug
   description = Re-running CMake...
   generator = 1
 

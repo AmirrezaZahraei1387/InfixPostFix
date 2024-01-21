@@ -166,7 +166,7 @@ NUMBER_t ExpTree<NUMBER_t>::calculate(ExpTree::Node *&node) {
         return node->value.number;
     }
 
-    return calculateValueW(node->value.tag, calculate(node->right), calculate(node->left));
+    return calculateValueW(node->value.tag, calculate(node->left), calculate(node->right));
 }
 
 template<typename NUMBER_t>
