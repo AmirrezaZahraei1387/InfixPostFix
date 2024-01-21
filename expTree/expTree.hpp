@@ -3,7 +3,7 @@
 //
 #ifndef INFIXPOSTFIX_EXPTREE_HPP
 #define INFIXPOSTFIX_EXPTREE_HPP
-#include "../inOutE.hpp"
+#include "../oper/inOutE.hpp"
 #include <ostream>
 
 
@@ -19,7 +19,7 @@ public:
 
     void loadFromPreFix(InputOrdFlow<NUMBER_t>& flow);
     void loadFromPostFix(InputOrdFlow<NUMBER_t>& flow);
-    //void loadFromInfix(InputOrdFlow<NUMBER_t>& flow);
+    void loadFromInFix(InputOrdFlow<NUMBER_t>& flow);
 
     void makeEmpty();
     NUMBER_t calculate();
@@ -40,6 +40,7 @@ private:
 
     NUMBER_t calculate(Node*& node);
     void makeEmpty(Node*& node);
+
 };
 
 

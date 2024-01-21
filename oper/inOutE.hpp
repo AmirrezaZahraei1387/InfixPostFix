@@ -104,7 +104,7 @@ int getUserInput(InputOrdFlow<NUMBER_t>& inputOrdFlow, std::istream& inputStream
 }
 
 template<typename NUMBER_t>
-void printW(InputOrd<NUMBER_t>& p, std::ostream& outStream){
+void printW(InputOrd<NUMBER_t>& p, std::ostream& outStream, bool resolveNegNum){
 
     switch (p.tag) {
         case ADD:
@@ -130,6 +130,28 @@ void printW(InputOrd<NUMBER_t>& p, std::ostream& outStream){
 }
 
 template<typename NUMBER_t>
+void printW(InputOrd<NUMBER_t>& p, std::ostream& outStream){
+
+    switch (p.tag) {
+        case ADD:
+            outStream<<"+ ";
+            break;
+        case SUB:
+            outStream<<"- ";
+            break;
+        case MUL:
+            outStream<<"* ";
+            break;
+        case DEV:
+            outStream<<"/ ";
+            break;
+        case  NUMBER:
+            outStream << p.number << ' ';
+            break;
+    }
+}
+
+template<typename NUMBER_t>
 NUMBER_t calculateValueW(TAG tag, NUMBER_t left, NUMBER_t right){
     switch (tag) {
         case ADD:
@@ -145,4 +167,11 @@ NUMBER_t calculateValueW(TAG tag, NUMBER_t left, NUMBER_t right){
             return left / right;
     }
 }
+
+bool isOperator(TAG tag);
+
+// checks to see if the operator 1 is an operator and have higher
+// precedence over the second one or not.
+bool isHigherPriority(TAG tag_1, TAG tag_2);
+
 #endif //INFIXPOSTFIX_INOUTE_HPP

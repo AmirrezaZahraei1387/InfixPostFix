@@ -5,8 +5,8 @@ set(CMAKE_CXX_STANDARD 17)
 
 add_executable(InfixPostFix
         main.cpp
-        inOutE.hpp
+        oper/inOutE.hpp
         expTree/expTree.hpp
         expTree/expTreePrint.inl
         expTree/expTreeLoad.inl
-        INPosPreFinder.hpp)
+        INPosPreFinder.hpp oper/inOutE.cpp)

@@ -3,7 +3,7 @@
 //
 #ifndef INFIXPOSTFIX_INPOSPREFINDER_HPP
 #define INFIXPOSTFIX_INPOSPREFINDER_HPP
-#include "inOutE.hpp"
+#include "oper/inOutE.hpp"
 
 enum StandardType{
     None,
@@ -16,10 +16,11 @@ template<typename NUMBER_t>
 StandardType findStandard(InputOrdFlow<NUMBER_t>& flow){
     if(flow.empty()){
         return None;
-    }else if(flow[flow.size() - 1].tag != NUMBER){
+    }else if(isOperator(flow[flow.size() - 1].tag)){
+        //std::cout<<'f'<<std::endl;
         return PostFix;
 
-    }else if(flow[0].tag != NUMBER){
+    }else if(isOperator(flow[0].tag)){
         return PreFix;
     }else{
         return InFix;

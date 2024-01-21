@@ -1,6 +1,6 @@
 // C++ program to convert infix to prefix
 #include <iostream>
-#include "inOutE.hpp"
+#include "oper/inOutE.hpp"
 #include "expTree/expTree.hpp"
 #include "INPosPreFinder.hpp"
 
@@ -15,20 +15,23 @@ int main()
 
     switch (standardType) {
         case None:
-            std::cout<<"no input provided"<<std::endl;
+            std::cerr<<"no input provided"<<std::endl;
             return 0;
+
         case PostFix:
+            std::cout<<"detected the exp as PostFix"<<std::endl;
             Expr.loadFromPostFix(inputOrdFlow);
             break;
 
         case PreFix:
+            std::cout<<"detected the exp as PreFix"<<std::endl;
             Expr.loadFromPreFix(inputOrdFlow);
             break;
 
-            // the infix is not added yet
-//        case InFix:
-//            Expr.loadFromInFix(inputOrdFlow);
-//            break;
+        case InFix:
+            std::cout<<"detected the exp as InfixFix"<<std::endl;
+            Expr.loadFromInFix(inputOrdFlow);
+            break;
     }
 
     std::cout<<"infix = ";Expr.printInFix(std::cout);std::cout<<std::endl;
