@@ -103,6 +103,11 @@ int getUserInput(InputOrdFlow<NUMBER_t>& inputOrdFlow, std::istream& inputStream
     return 0;
 }
 
+
+// this function is designed for printing 
+// the Input order p with paranthesis for the 
+// neg numbrs
+// mainly used for infix printing printing
 template<typename NUMBER_t>
 void printW(InputOrd<NUMBER_t>& p, std::ostream& outStream, bool resolveNegNum){
 
@@ -129,6 +134,9 @@ void printW(InputOrd<NUMBER_t>& p, std::ostream& outStream, bool resolveNegNum){
     }
 }
 
+// this function is designed for printing 
+// the Input order p without any paranthesis
+// mainly used for prefix and postfix printing
 template<typename NUMBER_t>
 void printW(InputOrd<NUMBER_t>& p, std::ostream& outStream){
 
