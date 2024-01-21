@@ -103,46 +103,6 @@ int getUserInput(InputOrdFlow<NUMBER_t>& inputOrdFlow, std::istream& inputStream
     return 0;
 }
 
-
-template<typename NUMBER_t>
-void printW(InputOrd<NUMBER_t>& p, std::ostream& outStream, bool isNegNumberResolver){
-
-    static TAG pre_tag;
-
-    switch (p.tag) {
-        case ADD:
-            outStream<<"+ ";
-            pre_tag = ADD;
-            break;
-
-        case SUB:
-            pre_tag = SUB;
-            outStream<<"- ";
-            break;
-
-        case MUL:
-            pre_tag = MUL;
-            outStream<<"* ";
-            break;
-
-        case DEV:
-            pre_tag = DEV;
-            outStream<<"/ ";
-            break;
-
-        case  NUMBER:
-            if(p.number < 0){
-                if(pre_tag == ADD || pre_tag == SUB){
-                    outStream<<'('<<p.number<<") ";
-                }
-            }else{
-                outStream<<p.number<<' ';
-            }
-            break;
-    }
-}
-
-
 template<typename NUMBER_t>
 void printW(InputOrd<NUMBER_t>& p, std::ostream& outStream){
 
@@ -160,7 +120,11 @@ void printW(InputOrd<NUMBER_t>& p, std::ostream& outStream){
             outStream<<"/ ";
             break;
         case  NUMBER:
-            outStream<<p.number<<' ';
+            if(p.number < 0){
+                outStream<<"("<<p.number<<") ";
+            }else {
+                outStream << p.number << ' ';
+            }
             break;
     }
 }

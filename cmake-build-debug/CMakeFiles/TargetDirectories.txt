@@ -1,3 +1,0 @@
-C:/CXX_PROJECTS/InfixPostFIX/cmake-build-debug/CMakeFiles/InfixPostFix.dir
-C:/CXX_PROJECTS/InfixPostFIX/cmake-build-debug/CMakeFiles/edit_cache.dir
-C:/CXX_PROJECTS/InfixPostFIX/cmake-build-debug/CMakeFiles/rebuild_cache.dir
