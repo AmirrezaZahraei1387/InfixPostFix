@@ -10,7 +10,7 @@
 template<typename NUMBER_t>
 void ExpTree<NUMBER_t>::loadFromPostFix(InputOrdFlow<NUMBER_t>& flow) {
 
-    std::stack<Node*> stack;
+    NodeStack stack;
     int i = 0;
     InputOrd<NUMBER_t> flowI;
 
@@ -49,7 +49,7 @@ void ExpTree<NUMBER_t>::loadFromPostFix(InputOrdFlow<NUMBER_t>& flow) {
 template<typename NUMBER_t>
 void ExpTree<NUMBER_t>::loadFromPreFix(InputOrdFlow<NUMBER_t>& flow) {
 
-    std::stack<Node*> stack;
+    NodeStack stack;
     int i = static_cast<int>(flow.size()) - 1;
     InputOrd<NUMBER_t> flowI;
 
@@ -88,7 +88,7 @@ void ExpTree<NUMBER_t>::loadFromPreFix(InputOrdFlow<NUMBER_t>& flow) {
 
 template<typename NUMBER_t>
 void ExpTree<NUMBER_t>::loadFromInFix(InputOrdFlow<NUMBER_t>& flow) {
-    std::stack<Node*> nodes;
+    NodeStack nodes;
     std::stack<InputOrd<NUMBER_t>> operators;
 
     for (auto flowI: flow) {
@@ -178,4 +178,14 @@ template<typename NUMBER_t>
 ExpTree<NUMBER_t>::~ExpTree() noexcept {
     makeEmpty();
     root_p = nullptr;
+}
+
+
+template<typename NUMBER_t>
+void ExpTree<NUMBER_t>::deallocateStack(NodeStack& stack){
+
+    while(! stack.empty()){
+        makeEmpty(stack.top());
+        stack.pop();
+    }
 }

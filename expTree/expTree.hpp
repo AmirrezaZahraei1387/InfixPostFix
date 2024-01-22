@@ -5,6 +5,7 @@
 #define INFIXPOSTFIX_EXPTREE_HPP
 #include "../oper/inOutE.hpp"
 #include <ostream>
+#include <stack>
 
 
 template<typename NUMBER_t>
@@ -24,7 +25,6 @@ public:
     void makeEmpty();
     NUMBER_t calculate();
 
-private:
     struct Node{
         InputOrd<NUMBER_t> value;
 
@@ -32,6 +32,9 @@ private:
         Node* right{nullptr};
     };
 
+    using NodeStack = std::stack<Node*>;
+
+private:
     Node* root_p;
 
     void printInFix(Node*& node,  std::ostream& outStream);
@@ -39,8 +42,9 @@ private:
     void printPostFix(Node*& node,  std::ostream& outStream);
 
     NUMBER_t calculate(Node*& node);
-    void makeEmpty(Node*& node);
 
+    static void makeEmpty(Node*& node);
+    static void deallocateStack(NodeStack& stack);
 };
 
 
@@ -48,4 +52,5 @@ bool isOperator(TAG tag);
 
 #include "expTreeLoad.inl"
 #include "expTreePrint.inl"
+
 #endif //INFIXPOSTFIX_EXPTREE_HPP

@@ -29,7 +29,7 @@ int main()
             break;
 
         case InFix:
-            std::cout<<"detected the exp as InfixFix"<<std::endl;
+            std::cout<<"detected the exp as Infix"<<std::endl;
             Expr.loadFromInFix(inputOrdFlow);
             break;
     }
