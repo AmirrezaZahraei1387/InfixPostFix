@@ -33,7 +33,7 @@ public:
     };
 
     using NodeStack = std::stack<Node*>;
-
+    static void deallocateStack(NodeStack& stack);
 private:
     Node* root_p;
 
@@ -44,11 +44,9 @@ private:
     NUMBER_t calculate(Node*& node);
 
     static void makeEmpty(Node*& node);
-    static void deallocateStack(NodeStack& stack);
+
 };
 
-
-bool isOperator(TAG tag);
 
 #include "expTreeLoad.inl"
 #include "expTreePrint.inl"

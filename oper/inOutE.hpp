@@ -3,14 +3,16 @@
 //
 #ifndef INFIXPOSTFIX_INOUTE_HPP
 #define INFIXPOSTFIX_INOUTE_HPP
+#include "../errorHandler/OperatorNotFound.hpp"
 #include <istream>
 #include <ostream>
+#include <cmath>
 #include <vector>
 #include <array>
 #include <algorithm>
 
 
-enum TAG{NUMBER, ADD, SUB, MUL, DEV, PAR_OPEN, PAR_CLOSE,};
+enum TAG{NUMBER, ADD, SUB, MUL, DEV, PAR_OPEN, PAR_CLOSE};
 static const std::array<char, 10> NUMBERS{'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
 
 template<typename NUMBER_t>
@@ -45,6 +47,7 @@ int getUserInput(InputOrdFlow<NUMBER_t>& inputOrdFlow, std::istream& inputStream
 
     std::string resolve_number;
     bool with_neg;
+    bool with_pos;
     std::string inputSeq;
 
     std::getline(inputStream, inputSeq);
@@ -54,79 +57,92 @@ int getUserInput(InputOrdFlow<NUMBER_t>& inputOrdFlow, std::istream& inputStream
         switch (x) {
             case '+':
                 resolveNumber(inputOrdFlow, resolve_number);
-                inputOrdFlow.push_back(InputOrd<NUMBER_t>{ADD});
+                inputOrdFlow.push_back(InputOrd<NUMBER_t>{.tag = ADD});
                 with_neg = false;
+                with_pos = true;
                 break;
 
             case '*':
                 resolveNumber(inputOrdFlow, resolve_number);
-                inputOrdFlow.push_back(InputOrd<NUMBER_t>{MUL});
+                inputOrdFlow.push_back(InputOrd<NUMBER_t>{.tag = MUL});
                 with_neg = false;
+                with_pos = false;
                 break;
 
             case '/':
                 resolveNumber(inputOrdFlow, resolve_number);
-                inputOrdFlow.push_back(InputOrd<NUMBER_t>{DEV});
+                inputOrdFlow.push_back(InputOrd<NUMBER_t>{. tag = DEV});
                 with_neg = false;
+                with_pos = false;
                 break;
 
             case '}':
                 resolveNumber(inputOrdFlow, resolve_number);
-                inputOrdFlow.push_back(InputOrd<NUMBER_t>{PAR_CLOSE});
+                inputOrdFlow.push_back(InputOrd<NUMBER_t>{.tag = PAR_CLOSE});
                 with_neg = false;
+                with_pos = false;
                 break;
 
             case '{':
                 resolveNumber(inputOrdFlow, resolve_number);
-                inputOrdFlow.push_back(InputOrd<NUMBER_t>{PAR_OPEN});
+                inputOrdFlow.push_back(InputOrd<NUMBER_t>{.tag = PAR_OPEN});
                 with_neg = false;
+                with_pos = false;
                 break;
 
             case '[':
                 resolveNumber(inputOrdFlow, resolve_number);
-                inputOrdFlow.push_back(InputOrd<NUMBER_t>{PAR_OPEN});
+                inputOrdFlow.push_back(InputOrd<NUMBER_t>{.tag = PAR_OPEN});
                 with_neg = false;
+                with_pos = false;
                 break;
 
             case ']':
                 resolveNumber(inputOrdFlow, resolve_number);
-                inputOrdFlow.push_back(InputOrd<NUMBER_t>{PAR_CLOSE});
+                inputOrdFlow.push_back(InputOrd<NUMBER_t>{.tag = PAR_CLOSE});
                 with_neg = false;
+                with_pos = false;
                 break;
 
             case '(':
                 resolveNumber(inputOrdFlow, resolve_number);
-                inputOrdFlow.push_back(InputOrd<NUMBER_t>{PAR_OPEN});
+                inputOrdFlow.push_back(InputOrd<NUMBER_t>{.tag = PAR_OPEN});
                 with_neg = false;
+                with_pos = false;
                 break;
 
             case ')':
                 resolveNumber(inputOrdFlow, resolve_number);
-                inputOrdFlow.push_back(InputOrd<NUMBER_t>{PAR_CLOSE});
+                inputOrdFlow.push_back(InputOrd<NUMBER_t>{.tag = PAR_CLOSE});
                 with_neg = false;
+                with_pos = false;
                 break;
 
             case '-':
                 resolveNumber(inputOrdFlow, resolve_number);
-                inputOrdFlow.push_back(InputOrd<NUMBER_t>{SUB});
+                inputOrdFlow.push_back(InputOrd<NUMBER_t>{.tag = SUB});
                 with_neg = true;
+                with_pos = false;
                 break;
 
             case ' ':
                 resolveNumber(inputOrdFlow, resolve_number);
                 with_neg = false;
+                with_pos = false;
                 break;
-
             default:
                 if(std::find(NUMBERS.begin(), NUMBERS.end(), x) != NUMBERS.end()){
                     if(with_neg){
                         with_neg = false;
                         resolve_number.push_back('-');
                         inputOrdFlow.pop_back();
+                    }else if(with_pos){
+                        with_pos = false;
+                        inputOrdFlow.pop_back();
                     }
                     resolve_number.push_back(x);
                 }else{
-                    return -1;
+                    throw OperatorNotFoundError{x};
                 }
         }
     }
@@ -157,7 +173,7 @@ void printW(InputOrd<NUMBER_t>& p, std::ostream& outStream, bool resolveNegNum){
             break;
         case  NUMBER:
             if(p.number < 0){
-                outStream<<"("<<p.number<<") ";
+                outStream<<"( "<<p.number<<" ) ";
             }else {
                 outStream << p.number << ' ';
             }
@@ -215,5 +231,4 @@ bool isOperator(TAG tag);
 // checks to see if the operator 1 is an operator and have higher
 // precedence over the second one or not.
 bool isHigherPriorityInfixLoad(TAG tag_1, TAG tag_2);
-
 #endif //INFIXPOSTFIX_INOUTE_HPP

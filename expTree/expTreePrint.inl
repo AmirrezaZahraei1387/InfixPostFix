@@ -33,8 +33,8 @@ void ExpTree<NUMBER_t>::printInFix(ExpTree::Node *&node, std::ostream &outStream
     if(node  == nullptr)
         return;
     else{
-        if((node->left != nullptr && node->right != nullptr)) {
-            outStream << '(';
+        if(node->right != nullptr && node->left != nullptr){
+                outStream << "( ";
         }
 
         printInFix(node->left, outStream);
@@ -43,8 +43,8 @@ void ExpTree<NUMBER_t>::printInFix(ExpTree::Node *&node, std::ostream &outStream
                );
         printInFix(node->right, outStream);
 
-        if(node->left != nullptr && node->right != nullptr){
-            outStream<<')';
+        if(node->left != nullptr && node->left != nullptr){
+            outStream<<") ";
         }
     }
 }
