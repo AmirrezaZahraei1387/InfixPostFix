@@ -96,12 +96,12 @@ void ExpTree<NUMBER_t>::loadFromInFix(InputOrdFlow<NUMBER_t>& flow) {
         if (flowI.tag == NUMBER) {
             nodes.push(new Node{.value = flowI});
 
-        } else if (flowI.tag == PAR_OPEN) {
+        } else if (isParOpen(flowI.tag)) {
             operators.push(flowI);
 
-        } else if (flowI.tag == PAR_CLOSE) {
+        } else if (isParClose(flowI.tag)) {
 
-            while (operators.top().tag != PAR_OPEN) {
+            while (!isParOpen(operators.top().tag)) {
                 Node *right{nodes.top()};
                 nodes.pop();
 
@@ -114,7 +114,7 @@ void ExpTree<NUMBER_t>::loadFromInFix(InputOrdFlow<NUMBER_t>& flow) {
             operators.pop();
 
         } else if (isOperator(flowI.tag)) {
-            while (!operators.empty() && isHigherPriority(operators.top().tag, flowI.tag)) {
+            while (!operators.empty() && isHigherPriorityInfixLoad(operators.top().tag, flowI.tag)) {
 
                 Node *right{nodes.top()};
                 nodes.pop();
@@ -129,7 +129,16 @@ void ExpTree<NUMBER_t>::loadFromInFix(InputOrdFlow<NUMBER_t>& flow) {
         }
     }
 
-    while (!operators.empty()) {
+    while (true) {
+
+        if(operators.empty()) {
+            if(nodes.size() > 1) {
+                operators.push(InputOrd<NUMBER_t>{.tag = ADD});
+            }else{
+                break;
+            }
+        }
+
         Node *right{nodes.top()};
         nodes.pop();
 
@@ -137,6 +146,8 @@ void ExpTree<NUMBER_t>::loadFromInFix(InputOrdFlow<NUMBER_t>& flow) {
         nodes.pop();
         nodes.push(new Node{.value = operators.top(), .left = left, .right = right});
         operators.pop();
+
+
     }
 
     makeEmpty();

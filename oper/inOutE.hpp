@@ -10,7 +10,7 @@
 #include <algorithm>
 
 
-enum TAG{NUMBER, ADD, SUB, MUL, DEV, PAR_OPEN, PAR_CLOSE};
+enum TAG{NUMBER, ADD, SUB, MUL, DEV, PAR_OPEN, PAR_CLOSE,};
 static const std::array<char, 10> NUMBERS{'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
 
 template<typename NUMBER_t>
@@ -67,6 +67,30 @@ int getUserInput(InputOrdFlow<NUMBER_t>& inputOrdFlow, std::istream& inputStream
             case '/':
                 resolveNumber(inputOrdFlow, resolve_number);
                 inputOrdFlow.push_back(InputOrd<NUMBER_t>{DEV});
+                with_neg = false;
+                break;
+
+            case '}':
+                resolveNumber(inputOrdFlow, resolve_number);
+                inputOrdFlow.push_back(InputOrd<NUMBER_t>{PAR_CLOSE});
+                with_neg = false;
+                break;
+
+            case '{':
+                resolveNumber(inputOrdFlow, resolve_number);
+                inputOrdFlow.push_back(InputOrd<NUMBER_t>{PAR_OPEN});
+                with_neg = false;
+                break;
+
+            case '[':
+                resolveNumber(inputOrdFlow, resolve_number);
+                inputOrdFlow.push_back(InputOrd<NUMBER_t>{PAR_OPEN});
+                with_neg = false;
+                break;
+
+            case ']':
+                resolveNumber(inputOrdFlow, resolve_number);
+                inputOrdFlow.push_back(InputOrd<NUMBER_t>{PAR_CLOSE});
                 with_neg = false;
                 break;
 
@@ -183,10 +207,13 @@ NUMBER_t calculateValueW(TAG tag, NUMBER_t left, NUMBER_t right){
     }
 }
 
+bool isParOpen(TAG& tag);
+bool isParClose(TAG& tag);
+
 bool isOperator(TAG tag);
 
 // checks to see if the operator 1 is an operator and have higher
 // precedence over the second one or not.
-bool isHigherPriority(TAG tag_1, TAG tag_2);
+bool isHigherPriorityInfixLoad(TAG tag_1, TAG tag_2);
 
 #endif //INFIXPOSTFIX_INOUTE_HPP

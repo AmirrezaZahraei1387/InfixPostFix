@@ -15,11 +15,19 @@ bool isOperator(TAG tag) {
     }
 }
 
-bool isHigherPriority(TAG tag_1, TAG tag_2){
+bool isHigherPriorityInfixLoad(TAG tag_1, TAG tag_2){
 
     if(tag_1 == PAR_OPEN || tag_2 == PAR_CLOSE || tag_1 == NUMBER){
         return false;
     }
 
     return (tag_1 == MUL || tag_1 == DEV)|| (tag_2 == ADD || tag_2 == SUB);
+}
+
+bool isParOpen(TAG& tag){
+    return (tag == PAR_OPEN);
+}
+
+bool isParClose(TAG& tag){
+    return(tag == PAR_CLOSE);
 }
