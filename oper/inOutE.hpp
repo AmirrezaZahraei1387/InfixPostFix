@@ -13,7 +13,7 @@
 
 
 enum TAG{NUMBER, ADD, SUB, MUL, DEV, PAR_OPEN, PAR_CLOSE};
-static const std::array<char, 10> NUMBERS{'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
+static const std::array<char, 11> NUMBERS{'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '.'};
 
 template<typename NUMBER_t>
 struct InputOrd{

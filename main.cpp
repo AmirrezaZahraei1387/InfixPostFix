@@ -2,15 +2,18 @@
 #include <iostream>
 #include "errorHandler/OperatorNotFound.hpp"
 #include "errorHandler/MissingOperand.hpp"
+#include "errorHandler/WrongOperator.hpp"
 #include "oper/inOutE.hpp"
 #include "expTree/expTree.hpp"
 #include "INPosPreFinder.hpp"
 
+using APP_TYPE = double;
+
 int main()
 {
-    InputOrdFlow<int> inputOrdFlow;
+    InputOrdFlow<APP_TYPE> inputOrdFlow;
     StandardType standardType;
-    ExpTree<int> Expr{};
+    ExpTree<APP_TYPE> Expr{};
 
     try {
         getUserInput(inputOrdFlow, std::cin);
@@ -43,11 +46,11 @@ int main()
                 Expr.loadFromInFix(inputOrdFlow);
                 break;
         }
-    }catch(MissingOperatorError<int>& error){
+    }catch(MissingOperatorError<APP_TYPE>& error){
         std::cerr<<error.what()<<std::endl;
         return -1;
 
-    }catch (WrongOperatorError<int>& error){
+    }catch (WrongOperatorError<APP_TYPE>& error){
         std::cerr<<error.what()<<std::endl;
         return -1;
     }
