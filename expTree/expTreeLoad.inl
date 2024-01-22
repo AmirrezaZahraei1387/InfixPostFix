@@ -3,6 +3,7 @@
 //
 #include "expTree.hpp"
 #include "../oper/inOutE.hpp"
+#include "../oper/op.hpp"
 #include "tools.hpp"
 #include <cstddef>
 #include <stack>
@@ -25,7 +26,7 @@ void ExpTree<NUMBER_t>::loadFromPostFix(InputOrdFlow<NUMBER_t>& flow) {
 
         ++i;
 
-        if(isOperator(flowI.tag)){
+        if(isOperator<NUMBER_t>(flowI.tag, stack)){
             rightLeftCompare(flowI, stack);
 
         }else {
@@ -54,7 +55,7 @@ void ExpTree<NUMBER_t>::loadFromPreFix(InputOrdFlow<NUMBER_t>& flow) {
 
         --i;
 
-        if(isOperator(flowI.tag)){
+        if(isOperator<NUMBER_t>(flowI.tag, stack)){
             leftRightCompare(flowI, stack);
         }else {
             stack.push(new Node{.value = flowI});

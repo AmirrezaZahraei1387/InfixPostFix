@@ -1,6 +1,7 @@
 //
 // Created by KAVOSH on 1/21/2024.
 //
+#include "../errorHandler/WrongOperator.hpp"
 #include "inOutE.hpp"
 
 bool isOperator(TAG tag) {
@@ -14,6 +15,7 @@ bool isOperator(TAG tag) {
             return false;
     }
 }
+
 
 bool isHigherPriorityInfixLoad(TAG tag_1, TAG tag_2){
 

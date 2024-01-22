@@ -11,4 +11,4 @@ add_executable(InfixPostFix
         expTree/expTreeLoad.inl
         INPosPreFinder.hpp 
         oper/inOutE.cpp
-        oper/resolveNum.cpp expTree/tools.hpp errorHandler/OperatorNotFound.hpp errorHandler/MissingOperand.hpp errorHandler/WrongOperator.hpp)
+        oper/resolveNum.cpp expTree/tools.hpp errorHandler/OperatorNotFound.hpp errorHandler/MissingOperand.hpp errorHandler/WrongOperator.hpp oper/op.hpp)

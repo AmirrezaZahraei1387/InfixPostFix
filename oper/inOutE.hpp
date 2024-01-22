@@ -4,6 +4,7 @@
 #ifndef INFIXPOSTFIX_INOUTE_HPP
 #define INFIXPOSTFIX_INOUTE_HPP
 #include "../errorHandler/OperatorNotFound.hpp"
+#include "../errorHandler/WrongOperator.hpp"
 #include <istream>
 #include <ostream>
 #include <cmath>
@@ -227,7 +228,6 @@ bool isParOpen(TAG& tag);
 bool isParClose(TAG& tag);
 
 bool isOperator(TAG tag);
-
 // checks to see if the operator 1 is an operator and have higher
 // precedence over the second one or not.
 bool isHigherPriorityInfixLoad(TAG tag_1, TAG tag_2);
