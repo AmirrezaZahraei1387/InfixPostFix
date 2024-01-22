@@ -22,16 +22,23 @@ struct InputOrd{
 template<typename NUMBER_t>
 using InputOrdFlow = std::vector<InputOrd<NUMBER_t>>;
 
+// this function gets the string and the input ordr flow to 
+// to resolve the number in the string and pusg it into the flow
+/*
+
+it is currently overloaded to work for the types
+int
+float
+long long
+double 
+long double
+*/
 template<typename NUMBER_t>
-void resolveNumber(InputOrdFlow<NUMBER_t>& inputOrdFlow , std::string& strSeq){
+void resolveNumber(InputOrdFlow<NUMBER_t>& inputOrdFlow, std::string& strSeq);
 
-    if(!strSeq.empty()) {
-        inputOrdFlow.push_back(InputOrd<NUMBER_t>{.tag = NUMBER,
-                .number = static_cast<NUMBER_t>(std::stod(strSeq))});
-        strSeq.clear();
-    }
-}
 
+// get user input will extract the user input into a InputorderFlow object making
+// it easier for the program to load and print it different exp formats.
 template<typename NUMBER_t>
 int getUserInput(InputOrdFlow<NUMBER_t>& inputOrdFlow, std::istream& inputStream){
 
