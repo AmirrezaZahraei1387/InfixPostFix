@@ -11,7 +11,7 @@ template<typename NUMBER_t>
 class MissingOperatorError: std::exception{
 public:
     explicit MissingOperatorError() {
-        error_p = "MissingOperatorError: the operands of the operator indicated are missing";
+        error_p = "MissingOperatorError: the operands of the operator are missing";
     };
 
     const char* what() const noexcept override{

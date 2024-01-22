@@ -13,7 +13,7 @@ class WrongOperatorError: std::exception{
 public:
     explicit WrongOperatorError()
     {
-        error_p = "WrongOperatorError: the operator indicated is used in a wrong way.";
+        error_p = "WrongOperatorError: the operator is used in a wrong way.";
     }
 
     const char* what() const noexcept override{
