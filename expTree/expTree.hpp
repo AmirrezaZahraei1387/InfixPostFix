@@ -45,6 +45,11 @@ private:
 
     static void makeEmpty(Node*& node);
 
+    template<typename NUMBER>
+    friend void rightLeftCompare(InputOrd<NUMBER>& flowI, typename ExpTree<NUMBER>::NodeStack& stack);
+
+    template<typename NUMBER>
+    friend void leftRightCompare(InputOrd<NUMBER>& flowI, typename ExpTree<NUMBER>::NodeStack& stack);
 };
 
 

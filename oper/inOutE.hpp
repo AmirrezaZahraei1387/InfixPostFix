@@ -224,8 +224,8 @@ NUMBER_t calculateValueW(TAG tag, NUMBER_t left, NUMBER_t right){
     }
 }
 
-bool isParOpen(TAG& tag);
-bool isParClose(TAG& tag);
+bool isParOpen(TAG tag);
+bool isParClose(TAG tag);
 
 bool isOperator(TAG tag);
 // checks to see if the operator 1 is an operator and have higher

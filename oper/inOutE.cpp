@@ -26,10 +26,10 @@ bool isHigherPriorityInfixLoad(TAG tag_1, TAG tag_2){
     return (tag_1 == MUL || tag_1 == DEV)|| (tag_2 == ADD || tag_2 == SUB);
 }
 
-bool isParOpen(TAG& tag){
+bool isParOpen(TAG tag){
     return (tag == PAR_OPEN);
 }
 
-bool isParClose(TAG& tag){
+bool isParClose(TAG tag){
     return(tag == PAR_CLOSE);
 }

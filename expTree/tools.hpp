@@ -7,43 +7,65 @@
 #include "../errorHandler/MissingOperand.hpp"
 #include "../errorHandler/WrongOperator.hpp"
 
-template<typename NUMBER_t>
-void rightLeftCompare(InputOrd<NUMBER_t>& flowI, typename ExpTree<NUMBER_t>::NodeStack& stack){
+template<typename NUMBER>
+void rightLeftCompare(InputOrd<NUMBER>& flowI, typename ExpTree<NUMBER>::NodeStack& stack){
     if(stack.empty()){
-        throw MissingOperatorError<NUMBER_t>{};
+        throw MissingOperatorError<NUMBER>{};
     }
     auto* right{stack.top()};
     stack.pop();
 
     if(stack.empty()){
-        throw MissingOperatorError<NUMBER_t>{};
+        ExpTree<NUMBER>::makeEmpty(right);
+        throw MissingOperatorError<NUMBER>{};
     }
 
     auto* left{stack.top()};
     stack.pop();
 
-    isOperator<NUMBER_t>(flowI.tag, stack);
+    try {
+        isOperator<NUMBER>(flowI.tag, stack);
+    }catch (WrongOperatorError<NUMBER>& error){
+        ExpTree<NUMBER>::makeEmpty(right);
+        ExpTree<NUMBER>::makeEmpty(left);
+        throw error;
+    }
 
-    auto* newNode = new typename ExpTree<NUMBER_t>::Node{.value = flowI, .left=left, .right= right};
+    auto* newNode = new typename ExpTree<NUMBER>::Node{.value = flowI, .left=left, .right= right};
     stack.push(newNode);
 }
 
-template<typename NUMBER_t>
-void leftRightCompare(InputOrd<NUMBER_t>& flowI, typename ExpTree<NUMBER_t>::NodeStack& stack){
-    if(stack.empty()){throw MissingOperatorError<NUMBER_t>{};}
+template<typename NUMBER>
+void leftRightCompare(InputOrd<NUMBER>& flowI, typename ExpTree<NUMBER>::NodeStack& stack){
+    if(stack.empty()){throw MissingOperatorError<NUMBER>{};}
 
     auto* left{stack.top()};
     stack.pop();
 
-    if(stack.empty()){throw MissingOperatorError<NUMBER_t>{};}
+    if(stack.empty()){
+        ExpTree<NUMBER>::makeEmpty(left);
+        throw MissingOperatorError<NUMBER>{};}
 
     auto* right{stack.top()};
     stack.pop();
 
-    isOperator<NUMBER_t>(flowI.tag, stack);
+    try {
+        isOperator<NUMBER>(flowI.tag, stack);
+    }catch (WrongOperatorError<NUMBER>& error){
+        ExpTree<NUMBER>::makeEmpty(right);
+        ExpTree<NUMBER>::makeEmpty(left);
+        throw error;
+    }
 
-    auto* newNode = new typename ExpTree<NUMBER_t>::Node{.value = flowI, .left=left, .right= right};
+    auto* newNode = new typename ExpTree<NUMBER>::Node{.value = flowI, .left=left, .right= right};
     stack.push(newNode);
 }
 
+template<typename NUMBER_t>
+void checkOPS(typename ExpTree<NUMBER_t>::NodeStack& stack, std::stack<InputOrd<NUMBER_t>>& op_stack){
+    if(op_stack.empty()){
+        ExpTree<NUMBER_t>::deallocateStack(stack);
+        throw MissingOperatorError<NUMBER_t>{};
+    }
+}
 #endif //INFIXPOSTFIX_TOOLS_HPP
