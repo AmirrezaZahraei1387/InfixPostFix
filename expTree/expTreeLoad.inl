@@ -75,6 +75,7 @@ void ExpTree<NUMBER_t>::loadFromInFix(InputOrdFlow<NUMBER_t>& flow) {
     for (auto flowI: flow) {
 
         if (flowI.tag == NUMBER) {
+
             nodes.push(new Node{.value = flowI});
 
         } else if (isParOpen(flowI.tag)) {
@@ -109,6 +110,7 @@ void ExpTree<NUMBER_t>::loadFromInFix(InputOrdFlow<NUMBER_t>& flow) {
         operators.pop();
     }
 
+
     makeEmpty();
     root_p = nodes.top();
 }
@@ -116,8 +118,8 @@ void ExpTree<NUMBER_t>::loadFromInFix(InputOrdFlow<NUMBER_t>& flow) {
 
 template<typename NUMBER_t>
 void ExpTree<NUMBER_t>::makeEmpty(ExpTree::Node *&node) {
-    if(node == nullptr) return;
 
+    if(node == nullptr) return;
     makeEmpty(node->left);
     makeEmpty(node->right);
 
