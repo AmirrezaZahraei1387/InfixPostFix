@@ -9,18 +9,20 @@
 
 template<typename NUMBER_t>
 void rightLeftCompare(InputOrd<NUMBER_t>& flowI, typename ExpTree<NUMBER_t>::NodeStack& stack){
-    if(stack.empty()){ExpTree<NUMBER_t>::deallocateStack(stack);throw MissingOperatorError<NUMBER_t>{};}
-
+    if(stack.empty()){
+        throw MissingOperatorError<NUMBER_t>{};
+    }
     auto* right{stack.top()};
     stack.pop();
 
-
-    if(stack.empty()){ExpTree<NUMBER_t>::deallocateStack(stack);throw MissingOperatorError<NUMBER_t>{};}
+    if(stack.empty()){
+        throw MissingOperatorError<NUMBER_t>{};
+    }
 
     auto* left{stack.top()};
     stack.pop();
 
-    if(!isOperator(flowI.tag)){ExpTree<NUMBER_t>::deallocateStack(stack);throw WrongOperatorError<NUMBER_t>{};}
+    isOperator<NUMBER_t>(flowI.tag, stack);
 
     auto* newNode = new typename ExpTree<NUMBER_t>::Node{.value = flowI, .left=left, .right= right};
     stack.push(newNode);
@@ -28,17 +30,17 @@ void rightLeftCompare(InputOrd<NUMBER_t>& flowI, typename ExpTree<NUMBER_t>::Nod
 
 template<typename NUMBER_t>
 void leftRightCompare(InputOrd<NUMBER_t>& flowI, typename ExpTree<NUMBER_t>::NodeStack& stack){
-    if(stack.empty()){ExpTree<NUMBER_t>::deallocateStack(stack);throw MissingOperatorError<NUMBER_t>{};}
+    if(stack.empty()){throw MissingOperatorError<NUMBER_t>{};}
 
     auto* left{stack.top()};
     stack.pop();
 
-    if(stack.empty()){ExpTree<NUMBER_t>::deallocateStack(stack);throw MissingOperatorError<NUMBER_t>{};}
+    if(stack.empty()){throw MissingOperatorError<NUMBER_t>{};}
 
     auto* right{stack.top()};
     stack.pop();
 
-    if(!isOperator(flowI.tag)){ExpTree<NUMBER_t>::deallocateStack(stack);throw WrongOperatorError<NUMBER_t>{};}
+    isOperator<NUMBER_t>(flowI.tag, stack);
 
     auto* newNode = new typename ExpTree<NUMBER_t>::Node{.value = flowI, .left=left, .right= right};
     stack.push(newNode);
