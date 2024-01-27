@@ -1,35 +1,56 @@
 //
 // Created by KAVOSH on 1/21/2024.
 //
-#include "../errorHandler/WrongOperator.hpp"
 #include "inOutE.hpp"
+#include "loader/loader.hpp"
 
-bool isOperator(TAG tag) {
-    switch(tag){
-        case ADD:
-        case MUL:
-        case DEV:
-        case SUB:
+bool isOperator(char tag) {
+    for(auto op : OPD::opRules.operators){
+        if(tag == op.first){
             return true;
-        default:
+        }
+    }
+    return false;
+}
+
+static OPD::Priority getPriority(char c){
+    for(auto op : OPD::opRules.operators){
+        if(c == op.first)
+            return op.second;
+    }
+    return 0;
+}
+
+bool isHigherPriorityInfixLoad(char tag_1, char tag_2){
+
+    for(auto par: OPD::opRules.organizers){
+        if(tag_1 == par.opening || tag_2 == par.closing || tag_1 == OPD::opRules.number_ind){
             return false;
-    }
-}
-
-
-bool isHigherPriorityInfixLoad(TAG tag_1, TAG tag_2){
-
-    if(tag_1 == PAR_OPEN || tag_2 == PAR_CLOSE || tag_1 == NUMBER){
-        return false;
+        }
     }
 
-    return (tag_1 == MUL || tag_1 == DEV)|| (tag_2 == ADD || tag_2 == SUB);
+//    return (tag_1 == MUL || tag_1 == DEV)|| (tag_2 == ADD || tag_2 == SUB);
+    return getPriority(tag_1) >= getPriority(tag_2);
 }
 
-bool isParOpen(TAG tag){
-    return (tag == PAR_OPEN);
+bool isParOpen(char tag){
+    for(auto par: OPD::opRules.organizers){
+        if(tag == par.opening){
+            return true;
+        }
+    }
+    return false;
 }
 
-bool isParClose(TAG tag){
-    return(tag == PAR_CLOSE);
+bool isParClose(char tag){
+    for(auto par: OPD::opRules.organizers){
+        if(tag == par.closing){
+            return true;
+        }
+    }
+    return false;
+}
+
+bool isNumber(char tag) {
+    return tag == OPD::opRules.number_ind;
 }

@@ -3,7 +3,6 @@
 //
 #include "expTree.hpp"
 #include "../oper/inOutE.hpp"
-#include "../oper/op.hpp"
 #include "tools.hpp"
 #include <cstddef>
 #include <stack>
@@ -20,13 +19,11 @@ void ExpTree<NUMBER_t>::loadFromPostFix(InputOrdFlow<NUMBER_t>& flow) {
 
         if(i < flow.size()) {
             flowI = flow[i];
-        }else{
-            flowI = InputOrd<NUMBER_t>{.tag = ADD};
         }
 
         ++i;
 
-        if(isOperator<NUMBER_t>(flowI.tag, stack)){
+        if(isOperator(flowI.tag)){
             rightLeftCompare(flowI, stack);
 
         }else {
@@ -49,13 +46,11 @@ void ExpTree<NUMBER_t>::loadFromPreFix(InputOrdFlow<NUMBER_t>& flow) {
 
         if(i >= 0) {
             flowI = flow[i];
-        }else{
-            flowI = InputOrd<NUMBER_t>{.tag = ADD};
         }
 
         --i;
 
-        if(isOperator<NUMBER_t>(flowI.tag, stack)){
+        if(isOperator(flowI.tag)){
             leftRightCompare(flowI, stack);
         }else {
             stack.push(new Node{.value = flowI});
@@ -73,8 +68,7 @@ void ExpTree<NUMBER_t>::loadFromInFix(InputOrdFlow<NUMBER_t>& flow) {
     std::stack<InputOrd<NUMBER_t>> operators;
 
     for (auto flowI: flow) {
-
-        if (flowI.tag == NUMBER) {
+        if (isNumber(flowI.tag)) {
 
             nodes.push(new Node{.value = flowI});
 
@@ -82,20 +76,18 @@ void ExpTree<NUMBER_t>::loadFromInFix(InputOrdFlow<NUMBER_t>& flow) {
             operators.push(flowI);
 
         } else if (isParClose(flowI.tag)) {
-            checkOPS(nodes, operators);
+
             while (!isParOpen(operators.top().tag)) {
                 rightLeftCompare(operators.top(), nodes);
-                checkOPS(nodes, operators);
                 operators.pop();
             }
-            checkOPS(nodes, operators);
+
             operators.pop();
 
         } else if (isOperator(flowI.tag)) {
-            checkOPS(nodes, operators);
+            //checkOPS(nodes, operators);
             while (!operators.empty() && isHigherPriorityInfixLoad(operators.top().tag, flowI.tag)) {
                 rightLeftCompare(operators.top(), nodes);
-                checkOPS(nodes, operators);
                 operators.pop();
             }
             operators.push(flowI);
@@ -104,16 +96,11 @@ void ExpTree<NUMBER_t>::loadFromInFix(InputOrdFlow<NUMBER_t>& flow) {
 
     while (true) {
         if(operators.empty()) {
-            if(nodes.size() > 1) {
-                operators.push(InputOrd<NUMBER_t>{.tag = ADD});
-            }else{
-                break;
-            }
+            break;
         }
         rightLeftCompare(operators.top(), nodes);
         operators.pop();
     }
-
 
     makeEmpty();
     root_p = nodes.top();
@@ -138,11 +125,11 @@ void ExpTree<NUMBER_t>::makeEmpty() {
 template<typename NUMBER_t>
 NUMBER_t ExpTree<NUMBER_t>::calculate(ExpTree::Node *&node) {
 
-    if(node->value.tag == NUMBER){
+    if(node->value.tag == OPD::opRules.number_ind){
         return node->value.number;
     }
 
-    return calculateValueW(node->value.tag, calculate(node->left), calculate(node->right));
+    return OPD::calculateValueW(node->value.tag, calculate(node->left), calculate(node->right));
 }
 
 template<typename NUMBER_t>

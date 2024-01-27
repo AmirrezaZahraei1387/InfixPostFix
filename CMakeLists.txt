@@ -13,7 +13,4 @@ add_executable(InfixPostFix
         oper/inOutE.cpp
         oper/resolveNum.cpp
         expTree/tools.hpp
-        errorHandler/OperatorNotFound.hpp
-        errorHandler/MissingOperand.hpp
-        errorHandler/WrongOperator.hpp
-        oper/op.hpp)
+        oper/loader/loader.hpp)
