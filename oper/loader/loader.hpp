@@ -46,7 +46,8 @@ namespace OPD {
             .operators{{'+', 1},
                        {'-', 1},
                        {'*', 2},
-                       {'/', 2}},
+                       {'/', 2},
+                       {'^', 3}},
 
             .organizers{{'(', ')'},
                         {'{', '}'},
@@ -76,6 +77,9 @@ namespace OPD {
 
             case '/':
                 return left / right;
+
+            case '^':
+                return std::pow(left, right);
         }
     }
 }// OPD
