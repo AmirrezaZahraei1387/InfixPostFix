@@ -5,6 +5,7 @@
 #define INFIXPOSTFIX_INOUTE_HPP
 
 #include "loader/loader.hpp"
+#include "../preCheck/except.hpp"
 #include <istream>
 #include <ostream>
 #include <cmath>
@@ -139,10 +140,10 @@ void getUserInput(InputOrdFlow<NUMBER_t>& inputOrdFlow, std::istream& inputStrea
     for(auto x: inputSeq){
         if(!handleOperators(np, inputOrdFlow, resolve_number, x)){
             if(!handleOrganizer(np, inputOrdFlow, resolve_number, x)){
-                handleSNPN(np, inputOrdFlow, resolve_number, x);
+                if(!handleSNPN(np, inputOrdFlow, resolve_number, x)){
+                    throw OperatorNotFoundError();
+                }
             }
-        }else if(!handleOrganizer(np, inputOrdFlow, resolve_number, x)){
-            handleSNPN(np, inputOrdFlow, resolve_number, x);
         }
     }
     resolveNumber(inputOrdFlow, resolve_number);

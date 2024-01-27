@@ -29,4 +29,11 @@ void leftRightCompare(InputOrd<NUMBER>& flowI, typename ExpTree<NUMBER>::NodeSta
     stack.push(newNode);
 }
 
+template<typename NUMBER_t>
+void ExpTree<NUMBER_t>::deallocateStack(NodeStack& stack) {
+    while (!stack.empty()) {
+        makeEmpty(stack.top());
+        stack.pop();
+    }
+}
 #endif //INFIXPOSTFIX_TOOLS_HPP

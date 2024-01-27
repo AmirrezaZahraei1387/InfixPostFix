@@ -35,8 +35,7 @@ namespace OPD {
         NumNeg numNeg;
         NumPos numPos;
 
-        bool isNumNegOp;
-        bool isNumPosOp;
+        NumPos mNumTrailingPos;
 
         NUMBER number_ind;
         OrganizerEXP default_neg_num_org;
@@ -57,6 +56,7 @@ namespace OPD {
 
             .numNeg = '-',
             .numPos = '+',
+            .mNumTrailingPos = '+',
 
             .number_ind = '0',
             .default_neg_num_org = {'(', ')'},

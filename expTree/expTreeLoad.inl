@@ -3,6 +3,8 @@
 //
 #include "expTree.hpp"
 #include "../oper/inOutE.hpp"
+#include "../preCheck/except.hpp"
+#include "../preCheck/preCheck.hpp"
 #include "tools.hpp"
 #include <cstddef>
 #include <stack>
@@ -15,19 +17,22 @@ void ExpTree<NUMBER_t>::loadFromPostFix(InputOrdFlow<NUMBER_t>& flow) {
     int i = 0;
     InputOrd<NUMBER_t> flowI;
 
-    while(stack.size()!= 1 || i < flow.size()){
+    while(i < flow.size()){
 
-        if(i < flow.size()) {
-            flowI = flow[i];
-        }
+        flowI = flow[i];
 
         ++i;
 
         if(isOperator(flowI.tag)){
+            checkForElements<NUMBER_t>(stack);
             rightLeftCompare(flowI, stack);
 
-        }else {
+        }else if(isNumber(flowI.tag)){
             stack.push(new Node{.value = flowI});
+
+        }else{
+            deallocateStack(stack);
+            throw IllegalOperatorError();
         }
     }
 
@@ -42,18 +47,22 @@ void ExpTree<NUMBER_t>::loadFromPreFix(InputOrdFlow<NUMBER_t>& flow) {
     int i = static_cast<int>(flow.size()) - 1;
     InputOrd<NUMBER_t> flowI;
 
-    while(stack.size()!= 1 || i >= 0){
+    while(i >= 0){
 
-        if(i >= 0) {
-            flowI = flow[i];
-        }
+        flowI = flow[i];
 
         --i;
 
         if(isOperator(flowI.tag)){
+            checkForElements<NUMBER_t>(stack);
             leftRightCompare(flowI, stack);
-        }else {
+
+        }else if(isNumber(flowI.tag)){
             stack.push(new Node{.value = flowI});
+
+        }else{
+            deallocateStack(stack);
+            throw IllegalOperatorError();
         }
     }
 
@@ -64,29 +73,36 @@ void ExpTree<NUMBER_t>::loadFromPreFix(InputOrdFlow<NUMBER_t>& flow) {
 
 template<typename NUMBER_t>
 void ExpTree<NUMBER_t>::loadFromInFix(InputOrdFlow<NUMBER_t>& flow) {
+
+    int par_open_count{0};
+    int par_close_count{0};
+
     NodeStack nodes;
     std::stack<InputOrd<NUMBER_t>> operators;
 
     for (auto flowI: flow) {
-        if (isNumber(flowI.tag)) {
 
+        if (isNumber(flowI.tag)) {
             nodes.push(new Node{.value = flowI});
 
         } else if (isParOpen(flowI.tag)) {
+            ++par_open_count;
             operators.push(flowI);
 
         } else if (isParClose(flowI.tag)) {
+            ++par_close_count;
 
             while (!isParOpen(operators.top().tag)) {
+                checkForElements<NUMBER_t>(nodes);
                 rightLeftCompare(operators.top(), nodes);
                 operators.pop();
             }
-
             operators.pop();
 
         } else if (isOperator(flowI.tag)) {
             //checkOPS(nodes, operators);
             while (!operators.empty() && isHigherPriorityInfixLoad(operators.top().tag, flowI.tag)) {
+                checkForElements<NUMBER_t>(nodes);
                 rightLeftCompare(operators.top(), nodes);
                 operators.pop();
             }
@@ -94,10 +110,16 @@ void ExpTree<NUMBER_t>::loadFromInFix(InputOrdFlow<NUMBER_t>& flow) {
         }
     }
 
+    if(par_close_count != par_open_count){
+        deallocateStack(nodes);
+        throw OrganizerError();
+    }
+
     while (true) {
         if(operators.empty()) {
             break;
         }
+        checkForElements<NUMBER_t>(nodes);
         rightLeftCompare(operators.top(), nodes);
         operators.pop();
     }
@@ -141,14 +163,4 @@ template<typename NUMBER_t>
 ExpTree<NUMBER_t>::~ExpTree() noexcept {
     makeEmpty();
     root_p = nullptr;
-}
-
-
-template<typename NUMBER_t>
-void ExpTree<NUMBER_t>::deallocateStack(NodeStack& stack){
-
-    while(! stack.empty()){
-        makeEmpty(stack.top());
-        stack.pop();
-    }
 }

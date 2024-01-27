@@ -1,7 +1,7 @@
 #include <iostream>
 #include "oper/inOutE.hpp"
 #include "expTree/expTree.hpp"
-#include "INPosPreFinder.hpp"
+#include "preCheck/INPosPreFinder.hpp"
 
 using APP_TYPE = double;
 
