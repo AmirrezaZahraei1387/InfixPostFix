@@ -9,7 +9,7 @@ add_executable(InfixPostFix
         expTree/expTree.hpp
         expTree/expTreePrint.inl
         expTree/expTreeLoad.inl
-        INPosPreFinder.hpp 
+        INPosPreFinder.hpp
         oper/inOutE.cpp
         oper/resolveNum.cpp
         expTree/tools.hpp
