@@ -36,8 +36,13 @@ void ExpTree<NUMBER_t>::loadFromPostFix(InputOrdFlow<NUMBER_t>& flow) {
         }
     }
 
-    makeEmpty();
-    root_p = stack.top();
+    if(stack.size() == 1){
+        makeEmpty();
+        root_p = stack.top();
+    }else{
+        deallocateStack(stack);
+        throw MissingOperatorError();
+    }
 }
 
 template<typename NUMBER_t>
@@ -66,8 +71,13 @@ void ExpTree<NUMBER_t>::loadFromPreFix(InputOrdFlow<NUMBER_t>& flow) {
         }
     }
 
-    makeEmpty();
-    root_p = stack.top();
+    if(stack.size() == 1){
+        makeEmpty();
+        root_p = stack.top();
+    }else{
+        deallocateStack(stack);
+        throw MissingOperatorError();
+    }
 }
 
 
@@ -91,6 +101,11 @@ void ExpTree<NUMBER_t>::loadFromInFix(InputOrdFlow<NUMBER_t>& flow) {
 
         } else if (isParClose(flowI.tag)) {
             ++par_close_count;
+
+            if(par_close_count > par_open_count){
+                deallocateStack(nodes);
+                throw OrganizerError();
+            }
 
             while (!isParOpen(operators.top().tag)) {
                 checkForElements<NUMBER_t>(nodes);
@@ -116,7 +131,8 @@ void ExpTree<NUMBER_t>::loadFromInFix(InputOrdFlow<NUMBER_t>& flow) {
     }
 
     while (true) {
-        if(operators.empty()) {
+
+        if(operators.empty()){
             break;
         }
         checkForElements<NUMBER_t>(nodes);
@@ -124,8 +140,13 @@ void ExpTree<NUMBER_t>::loadFromInFix(InputOrdFlow<NUMBER_t>& flow) {
         operators.pop();
     }
 
-    makeEmpty();
-    root_p = nodes.top();
+    if(nodes.size() == 1){
+        makeEmpty();
+        root_p = nodes.top();
+    }else{
+        deallocateStack(nodes);
+        throw MissingOperatorError();
+    }
 }
 
 

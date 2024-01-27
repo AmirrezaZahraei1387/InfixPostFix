@@ -1,9 +1,10 @@
 #include <iostream>
+#include "preCheck/except.hpp"
 #include "oper/inOutE.hpp"
 #include "expTree/expTree.hpp"
 #include "preCheck/INPosPreFinder.hpp"
 
-using APP_TYPE = double;
+using APP_TYPE = int;
 
 int main()
 {
@@ -11,12 +12,16 @@ int main()
     StandardType standardType;
     ExpTree<APP_TYPE> Expr{};
 
-
-    getUserInput(inputOrdFlow, std::cin);
-
+    try {
+        getUserInput(inputOrdFlow, std::cin);
+    }catch(OperatorNotFoundError& error){
+        std::cerr<<error.what()<<std::endl;
+        return -1;
+    }
 
     standardType = findStandard(inputOrdFlow);
 
+    try {
         switch (standardType) {
             case None:
                 std::cerr << "no input provided" << std::endl;
@@ -37,7 +42,20 @@ int main()
                 Expr.loadFromInFix(inputOrdFlow);
                 break;
         }
+    }catch (MissingOperandError& error){
 
+        std::cerr<<error.what()<<std::endl;
+        return -1;
+    }catch(IllegalOperatorError& error){
+        std::cerr<<error.what()<<std::endl;
+        return -1;
+    }catch (OrganizerError& error){
+        std::cerr<<error.what()<<std::endl;
+        return -1;
+    }catch (MissingOperatorError& error){
+        std::cerr<<error.what()<<std::endl;
+        return -1;
+    }
 
     std::cout<<"infix = ";Expr.printInFix(std::cout);std::cout<<std::endl;
     std::cout<<"prefix = ";Expr.printPreFix(std::cout);std::cout<<std::endl;
