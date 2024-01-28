@@ -24,7 +24,7 @@ run:
 inOutE.o: oper/inOutE.hpp oper/loader/loader.hpp oper/inOutE.cpp
 	$(CXX) $(CXX_FLAGS) -c oper/inOutE.cpp
 
-resolveNum.o: oper/inOutE.hpp oper/resolveNum.cpp
+resolveNum.o: oper/inOutE.hpp preCheck/except.hpp oper/resolveNum.cpp
 	$(CXX) $(CXX_FLAGS) -c oper/resolveNum.cpp
 
 main.o: oper/inOutE.hpp expTree/expTree.hpp preCheck/INPosPreFinder.hpp preCheck/except.hpp main.cpp

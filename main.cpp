@@ -4,7 +4,7 @@
 #include "expTree/expTree.hpp"
 #include "preCheck/INPosPreFinder.hpp"
 
-using APP_TYPE = int;
+using APP_TYPE = double;
 
 int main()
 {
@@ -15,6 +15,9 @@ int main()
     try {
         getUserInput(inputOrdFlow, std::cin);
     }catch(OperatorNotFoundError& error){
+        std::cerr<<error.what()<<std::endl;
+        return -1;
+    }catch (NumberError& error){
         std::cerr<<error.what()<<std::endl;
         return -1;
     }

@@ -13,8 +13,7 @@
 #include <array>
 #include <algorithm>
 
-
-static const std::array<char, 11> NUMBERS{'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '.'};
+static constexpr std::array<char, 11> NUMBERS{'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '.'};
 
 template<typename NUMBER_t>
 struct InputOrd{
@@ -44,7 +43,6 @@ long double
 
 template<typename NUMBER_t>
 void resolveNumber(InputOrdFlow<NUMBER_t>& inputOrdFlow, std::string& strSeq);
-
 
 template<typename NUMBER_t>
 bool handleOperators(NegPosFlags& np,
@@ -125,6 +123,9 @@ bool handleSNPN(NegPosFlags& np,
     }
     return false;
 }
+
+
+
 
 
 // get user input will extract the user input into a InputorderFlow object making

@@ -51,4 +51,14 @@ private:
     const std::string msg{"The operator is missing. Most likely because of having no operator before neg number."
                           "such as 4*(6 -4)."};
 };
+
+class NumberError: std::exception{
+public:
+    const char* what() const _GLIBCXX_TXN_SAFE_DYN _GLIBCXX_NOTHROW{
+        return msg.c_str();
+    }
+private:
+    const std::string msg{"The number is used in a illegal way. "
+                          "Most likely having multiple dots or space in between."};
+};
 #endif //INFIXPOSTFIX_EXCEPT_HPP
