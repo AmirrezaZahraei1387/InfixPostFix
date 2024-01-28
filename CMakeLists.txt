@@ -1,5 +1,7 @@
-cmake_minimum_required(VERSION 3.16.3)
-project(InfixPostFix)
+cmake_minimum_required(VERSION 3.10)
+
+project(InfixPostFix VERSION 1.0)
+configure_file(InfixPostFixConfig.h.in config/InfixPostFixConfig.h)
 
 set(CMAKE_CXX_STANDARD 17)
 
@@ -13,4 +15,6 @@ add_executable(InfixPostFix
         oper/inOutE.cpp
         oper/resolveNum.cpp
         expTree/tools.hpp
-        oper/loader/loader.hpp preCheck/except.hpp preCheck/preCheck.hpp)
+        oper/loader/loader.hpp
+        preCheck/except.hpp
+        preCheck/preCheck.hpp)

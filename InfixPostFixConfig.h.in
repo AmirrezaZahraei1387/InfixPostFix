@@ -1,0 +1,3 @@
+
+#define InfixPostFix_VERSION_MAJOR @InfixPostFix_VERSION_MAJOR@
+#define InfixPostFix_VERSION_MINOR @InfixPostFix_VERSION_MINOR@
