@@ -49,7 +49,7 @@ public:
     }
 private:
     const std::string msg{"The operator is missing. Most likely because of having no operator before neg number."
-                          "such as 4*(6 -4)."};
+                          "such as 4*(6 -4) or 5 -4."};
 };
 
 class NumberError: std::exception{

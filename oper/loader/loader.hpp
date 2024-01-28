@@ -35,8 +35,6 @@ namespace OPD {
         NumNeg numNeg;
         NumPos numPos;
 
-        NumPos mNumTrailingPos;
-
         NUMBER number_ind;
         OrganizerEXP default_neg_num_org;
     };
@@ -56,12 +54,14 @@ namespace OPD {
 
             .numNeg = '-',
             .numPos = '+',
-            .mNumTrailingPos = '+',
 
             .number_ind = '0',
             .default_neg_num_org = {'(', ')'},
 
     };
+
+    template<typename NUMBER_t>
+    NUMBER_t calculateValueW(char op, NUMBER_t left, NUMBER_t right);
 
     template<typename NUMBER_t>
     NUMBER_t calculateValueW(char op, NUMBER_t left, NUMBER_t right) {
