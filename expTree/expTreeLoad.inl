@@ -14,7 +14,7 @@ template<typename NUMBER_t>
 void ExpTree<NUMBER_t>::loadFromPostFix(InputOrdFlow<NUMBER_t>& flow) {
 
     NodeStack stack;
-    int i = 0;
+    std::size_t i = 0;
     InputOrd<NUMBER_t> flowI;
 
     while(i < flow.size()){

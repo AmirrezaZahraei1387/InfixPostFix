@@ -16,7 +16,7 @@ static bool check2ElementStack(typename ExpTree<NUMBER_t>::NodeStack& stack){
 
 
 template<typename NUMBER_t>
-static bool checkForElements(typename ExpTree<NUMBER_t>::NodeStack& stack){
+static void checkForElements(typename ExpTree<NUMBER_t>::NodeStack& stack){
     if(!check2ElementStack<NUMBER_t>(stack)){
         ExpTree<NUMBER_t>::deallocateStack(stack);
         throw MissingOperandError();
